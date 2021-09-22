@@ -13,7 +13,6 @@ class App extends Component {
       currentPlayer: "o",
       prevPlayer: "",
       movesHistory: [],
-      winner: "",
       counter: 0
     };
     this.winCondition = [
@@ -48,7 +47,7 @@ class App extends Component {
   }
 
   changePlayer = () => {
-    const nextPlayer = this.state.currentPlayer === "o" ? "x" : "o"
+    const nextPlayer = this.state.currentPlayer === "o" ? "+" : "o"
     this.setState({
       prevPlayer: this.state.currentPlayer,
       currentPlayer: nextPlayer
@@ -72,7 +71,8 @@ class App extends Component {
   }
 
   resetGame = () => {
-    this.setState(JSON.parse(JSON.stringify(this.initialState)))
+    this.setState(JSON.parse(JSON.stringify(this.initialState)));
+    this.endGame = false;
   }
 
   render() {
