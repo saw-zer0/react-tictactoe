@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import GameBoard from "./components/GameBoard"
 import MovesHistory from "./components/MovesHistory"
-import { Button } from "@mui/material"
+import { Button, Container, Grid } from "@mui/material"
 
 
 class App extends Component {
@@ -36,10 +36,9 @@ class App extends Component {
     }
     let board = JSON.parse(JSON.stringify(this.state.currentBoard))
     board[cellId] = this.state.currentPlayer
-    
+
     let movesHistory = JSON.parse(JSON.stringify(this.state.movesHistory))
-    movesHistory.push({cellId, player:this.state.currentPlayer})
-    console.log(movesHistory)
+    movesHistory.push({ cellId, player: this.state.currentPlayer })
     this.changePlayer()
     this.setState({
       currentBoard: board,
@@ -62,7 +61,7 @@ class App extends Component {
       const [a, b, c] = elem;
       return board[a] === board[b] && board[b] === board[c] && board[a] !== "" ? true : false
     })
-    if(win || this.state.counter > 8){
+    if (win || this.state.counter > 8) {
       this.displayMessage(win)
     }
   }
@@ -78,22 +77,32 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <Container maxWidth="md">
         <h1>TicTacToe</h1>
-        <GameBoard
-          currentBoard={this.state.currentBoard}
-          currentPlayer={this.state.currentPlayer}
-          updateGameBoard={this.updateGameBoard}
-        />
-        <MovesHistory
-          movesHistory={this.state.movesHistory}
-        />
-        <div>
-          <Button variant="contained" onClick={this.resetGame}>
-            RESET
-          </Button>
-        </div>
-      </div>
+        <Grid container spacing={3}>
+
+          <Grid item md={8} justify="center">
+            <GameBoard
+              currentBoard={this.state.currentBoard}
+              currentPlayer={this.state.currentPlayer}
+              updateGameBoard={this.updateGameBoard}
+            />
+          </Grid>
+
+          <Grid item md={4}>
+            <MovesHistory
+              movesHistory={this.state.movesHistory}
+            />
+          </Grid>
+
+          <Grid item md={3}>
+            <Button variant="contained" onClick={this.resetGame}>
+              RESET
+            </Button>
+          </Grid>
+
+        </Grid>
+      </Container>
     )
   }
 }
